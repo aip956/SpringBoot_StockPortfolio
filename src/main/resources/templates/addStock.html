@@ -29,6 +29,13 @@
                             <!-- Add amountInv -->
                             <label for="amountInv">Amount Invested:</label>
                             <input type="number" th:field="*{amountInv}" id="amountInv" class="form-control" required /><br/>
+
+                            <!-- Add amountInv
+                            <input type="number" th:field="*{amountInv}" id="amountInv" class="form-control" required /><br/>
+                            <td th:text="${#numbers.formatCurrency(stock.amountInv)}"></td>
+
+                            -->
+
                         </div>
 
                         <button type="submit" class="btn btn-primary">Add Investment</button><!-- Add button -->

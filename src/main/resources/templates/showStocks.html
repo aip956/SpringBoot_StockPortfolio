@@ -19,11 +19,17 @@
     <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<h3>
+			<h2>
 				List of Investments
-			</h3>
+			</h2>
+			<h5>Total Amount Invested: <td th:text="${#numbers.formatCurrency(totalAmountInv)}"></td> </h5>
+			<h5>Remaining Amount: <td th:text="${#numbers.formatCurrency(remainingAmt)}"></td> </h5>
+			<!--
+			<td th:text="${#numbers.formatCurrency(stock.amountInv)}"></td>
+			<td th:text="${#numbers.formatCurrency(stock.amountInv)}"></td>></td>
 			<p>Total Amount Invested: $<span th:text="${totalAmountInv}">0.00</span></p>
-			<p>Remaining Amount: $<span th:text="${remainingAmt}">0.00</span></p>
+			-->
+
 			<table class="table table-hover table-striped">
 
 				<thead>
@@ -39,8 +45,13 @@
 					<tr th:each = "stock : ${stocks}">
 						<td th:text="${stock.id}"></td>
 						<td th:text="${stock.stockName}"></td>
-						<td th:text="${stock.amountInv}"></td>
+						<td th:text="${#numbers.formatCurrency(stock.amountInv)}"></td>
 
+						<!--
+						<td th:text="${stock.amountInv}"></td>
+						<td>$ <span th:text="${#numbers.formatDecimal(abc.value, 0, 'COMMA', 2, 'POINT')}">10.00</span></td>
+						<td th:text="${#numbers.formatDecimal(stock.amountInv, 0, 'COMMA', 2, 'POINT')}"></td>
+						-->
 						<td>
 							<a th:href="@{'/editStock/' + ${stock.id}}" class="btn btn-primary">View/Edit</a>
 						</td>

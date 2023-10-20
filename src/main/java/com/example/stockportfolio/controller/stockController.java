@@ -77,10 +77,16 @@ public class stockController {
         }
     }
 
+    // issue with edit; if remaining amount = 0; and current stock is 850K; cannot edit to < 850K
     @PostMapping("/updateStock")
     public String updateStock(@ModelAttribute Stock stock, Model model) {
-        float newTotalAmtInv = stock.getAmountInv() + stockService.getTotalAmtInv();
+        float currentTotalAmtInv = stockService.getTotalAmtInv(); // Total amount currently invested
+        float maxTotalAmtInv = 10000000.0f; // Max total amount inv
+        float newTotalAmtInv = currentTotalAmtInv - stockService.findStockById(stock.getId()).getAmountInv() + stock.getAmountInv();
         System.out.println("81newTotalAmtInv: " + newTotalAmtInv);
+        System.out.println("87current stock inv: " + stockService.findStockById(stock.getId()).getAmountInv());
+        System.out.println("88stock.getAmtInv: " + stock.getAmountInv());
+        System.out.println("86totalAmtInv: " + stockService.getTotalAmtInv());
         if (newTotalAmtInv <= 10000000.0f) {
             Stock savedStock = stockService.saveStock(stock);
             return "redirect:/stock";
@@ -89,9 +95,7 @@ public class stockController {
             model.addAttribute("errorMessage", "Total Amount Invested would exceed $10M. Please enter an amount <= $" + (10000000.0f - stockService.getTotalAmtInv()));
             return "editStock";
         }
-
         // saves the stock after update and redirects to stock page
-
     }
 
     @GetMapping("/deleteStock/{id}")
