@@ -28,14 +28,10 @@ public class stockController {
     public String showStock(Model model) {
         // List of stocks
         List<Stock> stocks = stockService.getAllStock();
-        System.out.println("In showStock" + stocks);
         model.addAttribute("stocks", stocks);
 
         // Total amount invested
-        float totalAmountInv = 0;
-        for (Stock stock : stocks) {
-            totalAmountInv += stock.getAmountInv();
-        }
+        float totalAmountInv = stockService.getTotalAmtInv();
         model.addAttribute("totalAmountInv", totalAmountInv);
 
         // Remaining to invest
@@ -54,12 +50,16 @@ public class stockController {
     }
 
     @PostMapping("/addStock")
-    public String addStock(@ModelAttribute Stock stock) {
+    public String addStock(@ModelAttribute Stock stock, Model model) {
+
         float totalAmountInv = stockService.getTotalAmtInv();
-        if (totalAmountInv + stockService.getTotalAmtInv() <= 10000000.0f) {
+        System.out.println("amountInv: " + stock.getAmountInv());
+        if (stock.getAmountInv() + stockService.getTotalAmtInv() <= 10000000.0f) {
             Stock savedStock = stockService.saveStock(stock);
         } else {
-            return "cantAddStock";
+            // Add error message attribute to the model
+            model.addAttribute("errorMessage", "Total Amount Invested would exceed $10M. Please enter an amount <= $" + (10000000.0f - stockService.getTotalAmtInv()));
+            return "addStock";
         }
         // saves the stock after adding
         return "redirect:/stock";
@@ -78,10 +78,20 @@ public class stockController {
     }
 
     @PostMapping("/updateStock")
-    public String updateStock(@ModelAttribute Stock stock) {
-        stockService.saveStock(stock);
+    public String updateStock(@ModelAttribute Stock stock, Model model) {
+        float newTotalAmtInv = stock.getAmountInv() + stockService.getTotalAmtInv();
+        System.out.println("81newTotalAmtInv: " + newTotalAmtInv);
+        if (newTotalAmtInv <= 10000000.0f) {
+            Stock savedStock = stockService.saveStock(stock);
+            return "redirect:/stock";
+        } else {
+            // Add error message attribute to the model
+            model.addAttribute("errorMessage", "Total Amount Invested would exceed $10M. Please enter an amount <= $" + (10000000.0f - stockService.getTotalAmtInv()));
+            return "editStock";
+        }
+
         // saves the stock after update and redirects to stock page
-        return "redirect:/stock";
+
     }
 
     @GetMapping("/deleteStock/{id}")
