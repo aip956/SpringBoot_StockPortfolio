@@ -26,24 +26,41 @@ public class stockController {
 
     @GetMapping("/stock")
     public String showStock(Model model) {
+        // List of stocks
         List<Stock> stocks = stockService.getAllStock();
         System.out.println("In showStock" + stocks);
         model.addAttribute("stocks", stocks);
+
+        // Total amount invested
+        float totalAmountInv = 0;
+        for (Stock stock : stocks) {
+            totalAmountInv += stock.getAmountInv();
+        }
+        model.addAttribute("totalAmountInv", totalAmountInv);
+
+        // Remaining to invest
+        float totalInvLimit = 10000000; // $10M
+        float remainingAmt = totalInvLimit - totalAmountInv;
+        model.addAttribute("remainingAmt", remainingAmt);
+
         return "showStocks";
     }
 
     @GetMapping("/addStock")
     public String showAddStock(Model model) {
         model.addAttribute("stock", new Stock());
-
         // return addStock.html form
         return "addStock";
     }
 
     @PostMapping("/addStock")
     public String addStock(@ModelAttribute Stock stock) {
-        Stock savedStock = stockService.saveStock(stock);
-        System.out.println("In addStock: " + stock);
+        float totalAmountInv = stockService.getTotalAmtInv();
+        if (totalAmountInv + stockService.getTotalAmtInv() <= 10000000.0f) {
+            Stock savedStock = stockService.saveStock(stock);
+        } else {
+            return "cantAddStock";
+        }
         // saves the stock after adding
         return "redirect:/stock";
     }

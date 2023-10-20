@@ -22,25 +22,17 @@
 			<h3>
 				List of Investments
 			</h3>
+			<p>Total Amount Invested: $<span th:text="${totalAmountInv}">0.00</span></p>
+			<p>Remaining Amount: $<span th:text="${remainingAmt}">0.00</span></p>
 			<table class="table table-hover table-striped">
+
 				<thead>
 					<tr>
-						<th>
-							id
-						</th>
-						<th>
-							Stock
-						</th>
-						<th>
-							Amount Invested
-						</th>
-
-						<th>
-							Edit
-						</th>
-						<th>
-							Delete
-						</th>
+						<th>id</th>
+						<th>Stock</th>
+						<th>Amount Invested</th>
+						<th>Edit</th>
+						<th>Delete</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -50,7 +42,7 @@
 						<td th:text="${stock.amountInv}"></td>
 
 						<td>
-							<a th:href="@{'/editStock/' + ${stock.id}}" class="btn btn-primary">Edit</a>
+							<a th:href="@{'/editStock/' + ${stock.id}}" class="btn btn-primary">View/Edit</a>
 						</td>
 						<td>
 							<a th:href="@{'/deleteStock/' + ${stock.id}}" class="btn btn-danger">Delete</a>

@@ -19,4 +19,10 @@ public class StockService {
     public Stock findStockById(Long id) { return stockRepository.findById(id).orElse(null); }
     public Stock saveStock(Stock stock) { return stockRepository.save(stock); }
     public void deleteStockById(Long id) { stockRepository.deleteById(id); }
+    public float getTotalAmtInv() {
+        List<Stock> stocks = stockRepository.findAll();
+        return stocks.stream()
+                .map(Stock::getAmountInv)
+                .reduce(0.0f, Float::sum);
+    }
 }
