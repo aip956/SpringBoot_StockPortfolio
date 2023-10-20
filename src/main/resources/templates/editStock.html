@@ -13,22 +13,19 @@
             <div class="row">
                 <div class="col-md-12 ">
                     <h2>Edit This Person</h2>
-                    <form th:object="${person}" method="post" th:action="@{/updatePerson}">
+                    <form th:object="${stock}" method="post" th:action="@{/updateStock}">
                         <div class="form-group">
                            <input type="hidden" th:field="*{id}" />
                         </div>
                         <div class="form-group">
-                            <label for="name">Name:</label>
-                            <input type="text" th:field="*{name}" id="name" class="form-control" required /><br/>
+                            <label for="stockName">Name:</label>
+                            <input type="text" th:field="*{stockName}" id="stockName" class="form-control" required /><br/>
                         </div>
                         <div class="form-group">
-                            <label for="age">Age:</label>
-                            <input type="number" th:field="*{age}" id="age" class="form-control" required /><br/>
+                            <label for="amtInv">Age:</label>
+                            <input type="number" th:field="*{amountInv}" id="amtInv" class="form-control" required /><br/>
                         </div>
-                        <div class="form-group">
-                            <label for="weight">Weight:</label>
-                            <input type="number" step="0.01" th:field="*{weight}" id="weight" class="form-control" required /><br/>
-                        </div>
+
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
                 </div>

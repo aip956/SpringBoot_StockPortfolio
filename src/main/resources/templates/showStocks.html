@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Friends List</title>
+    <title>Investments List</title>
 
     <meta name="description" content="Source code generated using layoutit.com">
     <meta name="author" content="LayoutIt!">
+	  <link href="css/bootstrap.min.css" rel="stylesheet">
+	  <link href="css/style.css" rel="stylesheet">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
 
   </head>
   <body>
@@ -44,22 +44,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each = "p : ${people}">
-						<td th:text="${p.id}">
-							1
-						</td>
-						<td th:text="${p.stock}">
-							TB - Monthly
-						</td>
-						<td th:text="${p.amountInv}">
-							01/04/2012
-						</td>
+					<tr th:each = "stock : ${stocks}">
+						<td th:text="${stock.id}"></td>
+						<td th:text="${stock.stockName}"></td>
+						<td th:text="${stock.amountInv}"></td>
 
 						<td>
-							<a th:href="@{'/editPerson/' + ${p.id}}" class="btn btn-primary">Edit</a>
+							<a th:href="@{'/editStock/' + ${stock.id}}" class="btn btn-primary">Edit</a>
 						</td>
 						<td>
-							<a th:href="@{'/deletePerson/' + ${p.id}}" class="btn btn-danger">Delete</a>
+							<a th:href="@{'/deleteStock/' + ${stock.id}}" class="btn btn-danger">Delete</a>
 						</td>
 					</tr>
 				</tbody>
@@ -73,8 +67,16 @@
 	</div>
 </div>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--
+
+	<script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="js/jquery.min.js"></script>
+    <script th:src="js/bootstrap.min.js"></script>
+    <script th:src="js/scripts.js"></script>
+    No button yet
+			-->
   </body>
 </html>
