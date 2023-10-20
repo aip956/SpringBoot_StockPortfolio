@@ -27,7 +27,12 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">Update</button>
+                        <a th:href="@{/stock}" class="btn btn-secondary">Cancel</a> <!-- Cancel button -->
+                        <div th:if="${errorMessage}" class="alert alert-danger">
+                            <p th:text="${errorMessage}"></p>
+                        </div>
                     </form>
+
                 </div>
             </div>
         </div>
