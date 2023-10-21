@@ -20,41 +20,15 @@
 			</h2>
 			<h5>Total Amount Invested: <td th:text="${#numbers.formatCurrency(totalAmountInv)}"></td> </h5>
 			<h5>Remaining Amount: <td th:text="${#numbers.formatCurrency(remainingAmt)}"></td> </h5>
-
-			<div class = "filter-controls">
-				<label for="sortOption">Sort by: </label>
-				<span th:text="${selectedOption}"></span>
-				<select id="sortOption">
-					<option value="amountAsc">Amount (Low to High)</option>
-					<option value="amountDesc">Amount (High to Low)</option>
-					<option value="nameAsc">Stock Name (A to Z)</option>
-					<option value="nameDesc">Stock Name (Z to A)</option>
-				</select>
-			</div>
-			<!-- Links for changing the sorting field -->
-<!--			<a th:href="@{/stock?sortOption=amountAsc}">Amount (Low to High)</a>-->
-<!--			<a th:href="@{/stock?sortOption=amountDesc}">Amount (High to Low)</a>-->
-<!--			<a th:href="@{/stock?sortOption=nameAsc}">Stock Name (A to Z)</a>-->
-<!--			<a th:href="@{/stock?sortOption=nameDesc}">Stock Name (Z to A)</a>-->
-<!--			-->
-
-
-
-
-
-
-
 			<table class="table table-hover table-striped">
-
 				<thead>
 					<tr>
-						<th>id</th>
-						<th>Stock</th>
-						<th>Amount Invested</th>
+						<th class="sortable" data-sort="id">ID</th>
+						<th class="sortable" data-sort="stockName">Stock</th>
+						<th class="sortable" data-sort="amountInv">Amount Invested</th>
 						<th>Edit</th>
 						<th>Delete</th>
 					</tr>
-
 				</thead>
 				<tbody>
 					<tr th:each = "stock : ${stocks}" th:data-key="${stock.amountInv + '-' + stock.stockName}">
@@ -72,33 +46,30 @@
 					</tr>
 				</tbody>
 			</table>
-			<!--
-			No button yet
-			-->
 			<a th:href="@{/addStock}" class="btn btn-success">Add Stock / Inv</a>
-
 		</div>
 	</div>
 </div>
 
 	<script src="js/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/scripts.js"></script>
+  </body>
+</html>
 
 	<script>
 		$(document).ready(function() {
 			console.log("Document ready");
 			// Click event handler for column headers
-			$('.sort-link').on('click', function(e) {
+			$('.sortable').on('click', function(e) {
 				e.preventDefault();
-				const field = $(this).data('field'); // Get the field to sort
+				const field = $(this).data('sort'); // Get the field to sort
 				console.log("Field: ", field);
-				cost sortOrder = $(this).hasClass('ascending') ? 'descending' : 'ascending';
+				const sortOrder = $(this).hasClass('ascending') ? 'descending' : 'ascending';
 
 				// Toggle the class and sort arrow icon
-				$('.sort-link').removeClass('ascending descending');
+				$('.sortable').removeClass('ascending descending');
 				$(this).addClass(sortOrder);
 
 				// Call an API endpoint to fetch sorted data and update table
@@ -107,17 +78,33 @@
 
 			function fetchSortedData(field, sortOrder) {
 			// Make an AJAX request to API to get sorted data
-				$.get('/stock/${field}/$sortOrder', function (data) {
+				$.get('/stock/' + field + '/' + sortOrder, function(data) {
+					updateTable(data);
 					// Update table with sorted data
 					// Now use jQuery to update table
 				});
 			}
-		};
+
+			function updateTable(data) {
+				var tableBody = $('.table tbody');
+				tableBody.empty();
+				data.forEach(function (item) {
+					var row = '<tr>' +
+							'<td>' + item.id + '</td>' +
+							'<td>' + item.stockName + '</td>' +
+							'<td>' + item.amountInv + '</td>' +
+							'<td><a href="/editStock/' + item.id + '" class="btn btn-primary">View/Edit</a></td>' +
+							'<td><a href="/deleteStock/' + item.id + '" class="btn btn-danger">Delete</a></td>' +
+							'</tr>';
+					tableBody.append(row);
+				});
+			}
+		});
+	</script>
 
 
 
-  </body>
-</html>
+
 
 
 
@@ -167,4 +154,22 @@
 <!--						stockTable.append(row);-->
 <!--					});-->
 <!--				}-->
-<!--			</script>
+<!--
+			<div class = "filter-controls">
+				<label for="sortOption">Sort by: </label>
+				<span th:text="${selectedOption}"></span>
+				<select id="sortOption">
+					<option value="amountAsc">Amount (Low to High)</option>
+					<option value="amountDesc">Amount (High to Low)</option>
+					<option value="nameAsc">Stock Name (A to Z)</option>
+					<option value="nameDesc">Stock Name (Z to A)</option>
+				</select>
+			</div>
+ Links for changing the sorting field
+			<a th:href="@{/stock?sortOption=amountAsc}">Amount (Low to High)</a>
+			<a th:href="@{/stock?sortOption=amountDesc}">Amount (High to Low)</a>
+			<a th:href="@{/stock?sortOption=nameAsc}">Stock Name (A to Z)</a>
+			<a th:href="@{/stock?sortOption=nameDesc}">Stock Name (Z to A)</a>
+
+-->
+
