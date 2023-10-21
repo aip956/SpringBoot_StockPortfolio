@@ -1,11 +1,15 @@
 package com.example.stockportfolio.controller;
+import com.example.stockportfolio.comparator.StockAmountComparator;
+import com.example.stockportfolio.comparator.StockNameComparator;
 import com.example.stockportfolio.model.Stock;
 import com.example.stockportfolio.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -25,11 +29,22 @@ public class stockController {
 //    }
 
     @GetMapping("/stock")
-    public String showStock(Model model) {
+    public String showStock(Model model, @RequestParam(name = "sortOption", required = false) String selectedOption) {
         // List of stocks
-         System.out.println("Show stock");
+        selectedOption = "amountAsc";
+        System.out.println("Show stock");
+
         List<Stock> stocks = stockService.getAllStock();
         model.addAttribute("stocks", stocks);
+        if (selectedOption.equals("amountAsc")) {
+            Collections.sort(stocks, new StockAmountComparator());
+        } else if (selectedOption.equals("amountDesc")) {
+            Collections.sort(stocks, Collections.reverseOrder(new StockAmountComparator()));
+        } else if (selectedOption.equals("nameAsc")) {
+            Collections.sort(stocks, new StockNameComparator());
+        } else if (selectedOption.equals("nameDesc")) {
+            Collections.sort(stocks, Collections.reverseOrder(new StockNameComparator()));
+        }
 
         // Total amount invested
         float totalAmountInv = stockService.getTotalAmtInv();
@@ -40,6 +55,13 @@ public class stockController {
         float remainingAmt = totalInvLimit - totalAmountInv;
         model.addAttribute("remainingAmt", remainingAmt);
 
+        return "showStocks";
+    }
+
+    // Sorted stock list
+     @GetMapping("/{field}")
+    public String getStocksWithSort(@PathVariable String field) {
+        List<Stock> stocks = stockService.findStockWithSorting(field);
         return "showStocks";
     }
 
@@ -99,6 +121,7 @@ public class stockController {
         }
         // saves the stock after update and redirects to stock page
     }
+
 
     @GetMapping("/deleteStock/{id}")
     public String deleteStock(@PathVariable Long id, Model model) {

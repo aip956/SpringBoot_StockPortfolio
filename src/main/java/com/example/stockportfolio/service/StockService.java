@@ -3,6 +3,7 @@ package com.example.stockportfolio.service;
 import com.example.stockportfolio.model.Stock;
 import com.example.stockportfolio.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -24,5 +25,8 @@ public class StockService {
         return stocks.stream()
                 .map(Stock::getAmountInv)
                 .reduce(0.0f, Float::sum);
+    }
+    public List<Stock> findStockWithSorting(String field) {
+        return stockRepository.findAll(Sort.by(Sort.Direction.ASC,field));
     }
 }

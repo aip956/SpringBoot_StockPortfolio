@@ -33,15 +33,29 @@
 			<script>
 				$(document).ready(function() {
 					console.log("Document ready");
-					$('#sortOption').change(function() {
-						const option = $(this).val();
+					// define the select element
+					sortOption = $('#sortOption');
+
+					// Function to handle the change event
+					function handleSortOptionChange() {
+						const option = sortOption.val();
+						console.log("handlesortoption change");
 						sortStocks(option);
-					});
-				});
+					}
+
+					// Add an event listener for the change event
+					sortOption.on('change', handleSortOptionChange);
+
+					// Trigger the change event when the page loads or after defining the event listener
+					handleSortOptionChange();
+
+					// $('#sortOption').change(function() {
+					// 	const option = $(this).val();
+					// 	sortStocks(option);
+
+
 
 				function sortStocks(option) {
-					console.log('keyA:', keyA);
-					console.log('keyB:', keyB);
 					console.log('option:', option);
 					const stockTable = $('.table tbody');
 					const rows = stockTable.children('tr').get();
@@ -49,7 +63,8 @@
 					rows.sort(function (a, b) {
 						const keyA = $(a).attr('data-key');
 						const keyB = $(b).attr('data-key');
-
+						console.log('keyA:', keyA);
+						console.log('keyB:', keyB);
 						if (option === 'amountAsc') {
 							return keyA - keyB;
 						} else if (option === 'amountDesc') {
@@ -87,7 +102,7 @@
 
 						<td>
 							<a th:href="@{'/editStock/' + ${stock.id}}" class="btn btn-primary">View/Edit</a>
-							console.log("stock");
+
 						</td>
 						<td>
 							<a th:href="@{'/deleteStock/' + ${stock.id}}" class="btn btn-danger">Delete</a>
