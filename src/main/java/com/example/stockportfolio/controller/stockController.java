@@ -4,6 +4,7 @@ import com.example.stockportfolio.comparator.StockNameComparator;
 import com.example.stockportfolio.model.Stock;
 import com.example.stockportfolio.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,21 +31,29 @@ public class stockController {
 
     @GetMapping("/stock")
     public String showStock(Model model, @RequestParam(name = "sortOption", required = false) String selectedOption) {
+        //  public String showStock(Model model, @RequestParam(name = "sortOption", required = false) String selectedOption) {
         // List of stocks
-        selectedOption = "amountAsc";
+        if (selectedOption ==  null) {
+            selectedOption = "amountAsc";
+            System.out.println("selectedOption null");
+        }
+
         System.out.println("Show stock");
 
         List<Stock> stocks = stockService.getAllStock();
+//        List<Stock> stocks = stockService.findStockWithSorting(selectedOption);
+        model.addAttribute("selectedOption", selectedOption);
+        System.out.println("45selectedOption: " + selectedOption);
         model.addAttribute("stocks", stocks);
-        if (selectedOption.equals("amountAsc")) {
-            Collections.sort(stocks, new StockAmountComparator());
-        } else if (selectedOption.equals("amountDesc")) {
-            Collections.sort(stocks, Collections.reverseOrder(new StockAmountComparator()));
-        } else if (selectedOption.equals("nameAsc")) {
-            Collections.sort(stocks, new StockNameComparator());
-        } else if (selectedOption.equals("nameDesc")) {
-            Collections.sort(stocks, Collections.reverseOrder(new StockNameComparator()));
-        }
+//        if (selectedOption.equals("amountAsc")) {
+//            Collections.sort(stocks, new StockAmountComparator());
+//        } else if (selectedOption.equals("amountDesc")) {
+//            Collections.sort(stocks, Collections.reverseOrder(new StockAmountComparator()));
+//        } else if (selectedOption.equals("nameAsc")) {
+//            Collections.sort(stocks, new StockNameComparator());
+//        } else if (selectedOption.equals("nameDesc")) {
+//            Collections.sort(stocks, Collections.reverseOrder(new StockNameComparator()));
+//        }
 
         // Total amount invested
         float totalAmountInv = stockService.getTotalAmtInv();
@@ -59,9 +68,47 @@ public class stockController {
     }
 
     // Sorted stock list
-     @GetMapping("/{field}")
-    public String getStocksWithSort(@PathVariable String field) {
-        List<Stock> stocks = stockService.findStockWithSorting(field);
+    @GetMapping("/{field}")
+    public String getStocksWithSort(@PathVariable String field, Model model) {
+        List<Stock> stocks = stockService.findStocksWithSorting(field);
+
+         // Total amount invested
+         float totalAmountInv = stockService.getTotalAmtInv();
+         model.addAttribute("totalAmountInv", totalAmountInv);
+
+         // Remaining to invest
+         float totalInvLimit = 10000000; // $10M
+         float remainingAmt = totalInvLimit - totalAmountInv;
+         model.addAttribute("remainingAmt", remainingAmt);
+        return "showStocks";
+    }
+
+    @GetMapping("/pagination/{offset}/{pageSize}")
+    public String getStocksWithPagination(@PathVariable int offset, @PathVariable int pageSize, Model model) {
+        Page<Stock> stocksPage = stockService.findStocksWithPagination(offset, pageSize);
+
+        // Total amount invested
+        float totalAmountInv = stockService.getTotalAmtInv();
+        model.addAttribute("totalAmountInv", totalAmountInv);
+
+        // Remaining to invest
+        float totalInvLimit = 10000000; // $10M
+        float remainingAmt = totalInvLimit - totalAmountInv;
+        model.addAttribute("remainingAmt", remainingAmt);
+        return "showStocks";
+    }
+
+    @GetMapping("/pagination/{offset}/{pageSize}/{field}")
+    // Postman: GET http://localhost:8080/api/stock/pagination/0/3 (first 3 elements)
+    public String getStocksWithPaginationAndSort(@PathVariable int offset, @PathVariable int pageSize, @PathVariable String field, Model model) {
+        // Total amount invested
+        float totalAmountInv = stockService.getTotalAmtInv();
+        model.addAttribute("totalAmountInv", totalAmountInv);
+
+        // Remaining to invest
+        float totalInvLimit = 10000000; // $10M
+        float remainingAmt = totalInvLimit - totalAmountInv;
+        model.addAttribute("remainingAmt", remainingAmt);
         return "showStocks";
     }
 
