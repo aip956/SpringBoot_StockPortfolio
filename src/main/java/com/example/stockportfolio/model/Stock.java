@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+
 @Entity
 public class Stock {
     @Id
@@ -58,4 +59,5 @@ public class Stock {
     public void setAmountInv(float amountInv) {
         this.amountInv = amountInv;
     }
+
 }

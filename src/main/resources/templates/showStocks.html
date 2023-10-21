@@ -4,15 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Investments List</title>
-
     <meta name="description" content="Source code generated using layoutit.com">
     <meta name="author" content="LayoutIt!">
 	  <link href="css/bootstrap.min.css" rel="stylesheet">
 	  <link href="css/style.css" rel="stylesheet">
-
-
   </head>
   <body>
 
@@ -24,11 +20,52 @@
 			</h2>
 			<h5>Total Amount Invested: <td th:text="${#numbers.formatCurrency(totalAmountInv)}"></td> </h5>
 			<h5>Remaining Amount: <td th:text="${#numbers.formatCurrency(remainingAmt)}"></td> </h5>
-			<!--
-			<td th:text="${#numbers.formatCurrency(stock.amountInv)}"></td>
-			<td th:text="${#numbers.formatCurrency(stock.amountInv)}"></td>></td>
-			<p>Total Amount Invested: $<span th:text="${totalAmountInv}">0.00</span></p>
-			-->
+
+			<div class = "filter-controls">
+				<label for="sortOption">Sort by: </label>
+				<select id="sortOption">
+					<option value="amountAsc">Amount (Low to High)</option>
+					<option value="amountDesc">Amount (High to Low)</option>
+					<option value="nameAsc">Stock Name (A to Z)</option>
+					<option value="nameDesc">Stock Name (Z to A)</option>
+				</select>
+			</div>
+			<script>
+				$(document).ready(function() {
+					console.log("Document ready");
+					$('#sortOption').change(function() {
+						const option = $(this).val();
+						sortStocks(option);
+					});
+				});
+
+				function sortStocks(option) {
+					console.log('keyA:', keyA);
+					console.log('keyB:', keyB);
+					console.log('option:', option);
+					const stockTable = $('.table tbody');
+					const rows = stockTable.children('tr').get();
+
+					rows.sort(function (a, b) {
+						const keyA = $(a).attr('data-key');
+						const keyB = $(b).attr('data-key');
+
+						if (option === 'amountAsc') {
+							return keyA - keyB;
+						} else if (option === 'amountDesc') {
+							return keyB - keyA;
+						} else if (option === 'nameAsc') {
+							return keyA.localeCompare(keyB);
+						} else if (option === 'nameDesc') {
+							return keyB.localeCompare(keyA);
+						}
+					});
+					stockTable.empty();
+					$.each(rows, function(index, row) {
+						stockTable.append(row);
+					});
+				}
+			</script>
 
 			<table class="table table-hover table-striped">
 
@@ -40,20 +77,17 @@
 						<th>Edit</th>
 						<th>Delete</th>
 					</tr>
+
 				</thead>
 				<tbody>
-					<tr th:each = "stock : ${stocks}">
+					<tr th:each = "stock : ${stocks}" th:data-key="${stock.amountInv + '-' + stock.stockName}">
 						<td th:text="${stock.id}"></td>
 						<td th:text="${stock.stockName}"></td>
 						<td th:text="${#numbers.formatCurrency(stock.amountInv)}"></td>
 
-						<!--
-						<td th:text="${stock.amountInv}"></td>
-						<td>$ <span th:text="${#numbers.formatDecimal(abc.value, 0, 'COMMA', 2, 'POINT')}">10.00</span></td>
-						<td th:text="${#numbers.formatDecimal(stock.amountInv, 0, 'COMMA', 2, 'POINT')}"></td>
-						-->
 						<td>
 							<a th:href="@{'/editStock/' + ${stock.id}}" class="btn btn-primary">View/Edit</a>
+							console.log("stock");
 						</td>
 						<td>
 							<a th:href="@{'/deleteStock/' + ${stock.id}}" class="btn btn-danger">Delete</a>
@@ -71,15 +105,10 @@
 </div>
 
 	<script src="js/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/scripts.js"></script>
-	<!--
 
-	<script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="js/jquery.min.js"></script>
-    <script th:src="js/bootstrap.min.js"></script>
-    <script th:src="js/scripts.js"></script>
-    No button yet
-			-->
   </body>
 </html>

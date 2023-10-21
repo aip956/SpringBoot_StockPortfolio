@@ -27,6 +27,7 @@ public class stockController {
     @GetMapping("/stock")
     public String showStock(Model model) {
         // List of stocks
+         System.out.println("Show stock");
         List<Stock> stocks = stockService.getAllStock();
         model.addAttribute("stocks", stocks);
 
@@ -45,6 +46,7 @@ public class stockController {
     @GetMapping("/addStock")
     public String showAddStock(Model model) {
         model.addAttribute("stock", new Stock());
+
         // return addStock.html form
         return "addStock";
     }
