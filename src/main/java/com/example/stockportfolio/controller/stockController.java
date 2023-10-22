@@ -60,8 +60,9 @@ public class stockController {
 
     // Sorted stock list
     @GetMapping("/{field}")
-    public String getStocksWithSort(@PathVariable String field, @PathVariable String order, Model model) {
-        List<Stock> stocks = stockService.findStocksWithSorting(field, order);
+    public String getStocksWithSort(@PathVariable String field,
+                                    @RequestParam(name = "order", defaultValue = "descending") String sortOrder, Model model) {
+        List<Stock> stocks = stockService.findStocksWithSorting(field, sortOrder);
 
          // Total amount invested
          float totalAmountInv = stockService.getTotalAmtInv();

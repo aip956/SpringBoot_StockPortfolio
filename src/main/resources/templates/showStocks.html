@@ -55,19 +55,21 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/scripts.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.7/js/tether.min.js"></script>
+
   </body>
 </html>
 
 	<script>
 		$(document).ready(function() {
-			console.log("HTML:Document ready");
+			console.log("63HTML:Document ready");
 			// Click event handler for column headers
 			$('.sortable').on('click', function(e) {
 				e.preventDefault();
 				const field = $(this).data('sort'); // Get the field to sort
-				console.log("HTMLField: ", field);
+				console.log("68HTMLField: ", field);
 				const sortOrder = $(this).hasClass('ascending') ? 'descending' : 'ascending';
-				console.log("sortOrder: ", sortOrder);
+				console.log("70sortOrder: ", sortOrder);
 				// Toggle the class and sort arrow icon
 				$('.sortable').removeClass('ascending descending');
 				$(this).addClass(sortOrder);
@@ -77,9 +79,9 @@
 			});
 
 			function fetchSortedData(field, sortOrder) {
-				console.log("HTML:In fetchSortedData");
+				console.log("80HTML:In fetchSortedData");
 			// Make an AJAX request to API to get sorted data
-				$.get('/stock/' + field + '/' + sortOrder, function(data) {
+				$.get('/stock/' + field, {order: sortOrder }, function(data) {
 					updateTable(data);
 					// Update table with sorted data
 					// Now use jQuery to update table
@@ -87,7 +89,7 @@
 			}
 
 			function updateTable(data) {
-				console.log("HTML:In updateTable");
+				console.log("90HTML:In updateTable");
 				var tableBody = $('.table tbody');
 				tableBody.empty();
 				data.forEach(function (item) {
