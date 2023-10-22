@@ -41,19 +41,10 @@ public class stockController {
         System.out.println("Show stock");
 
         List<Stock> stocks = stockService.getAllStock();
-//        List<Stock> stocks = stockService.findStockWithSorting(selectedOption);
         model.addAttribute("selectedOption", selectedOption);
         System.out.println("45selectedOption: " + selectedOption);
         model.addAttribute("stocks", stocks);
-//        if (selectedOption.equals("amountAsc")) {
-//            Collections.sort(stocks, new StockAmountComparator());
-//        } else if (selectedOption.equals("amountDesc")) {
-//            Collections.sort(stocks, Collections.reverseOrder(new StockAmountComparator()));
-//        } else if (selectedOption.equals("nameAsc")) {
-//            Collections.sort(stocks, new StockNameComparator());
-//        } else if (selectedOption.equals("nameDesc")) {
-//            Collections.sort(stocks, Collections.reverseOrder(new StockNameComparator()));
-//        }
+
 
         // Total amount invested
         float totalAmountInv = stockService.getTotalAmtInv();
@@ -69,8 +60,8 @@ public class stockController {
 
     // Sorted stock list
     @GetMapping("/{field}")
-    public String getStocksWithSort(@PathVariable String field, Model model) {
-        List<Stock> stocks = stockService.findStocksWithSorting(field);
+    public String getStocksWithSort(@PathVariable String field, @PathVariable String order, Model model) {
+        List<Stock> stocks = stockService.findStocksWithSorting(field, order);
 
          // Total amount invested
          float totalAmountInv = stockService.getTotalAmtInv();

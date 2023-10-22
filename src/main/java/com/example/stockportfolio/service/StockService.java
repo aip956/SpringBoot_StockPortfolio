@@ -28,8 +28,9 @@ public class StockService {
                 .map(Stock::getAmountInv)
                 .reduce(0.0f, Float::sum);
     }
-    public List<Stock> findStocksWithSorting(String field) {
-        return stockRepository.findAll(Sort.by(Sort.Direction.ASC,field));
+    public List<Stock> findStocksWithSorting(String field, String order) {
+        Sort.Direction direction = "ascending".equalsIgnoreCase(order) ? Sort.Direction.ASC : Sort.Direction.DESC;
+        return stockRepository.findAll(Sort.by(direction,field));
     }
 
     public Page<Stock> findStocksWithPagination(int offset, int pageSize) {

@@ -60,14 +60,14 @@
 
 	<script>
 		$(document).ready(function() {
-			console.log("Document ready");
+			console.log("HTML:Document ready");
 			// Click event handler for column headers
 			$('.sortable').on('click', function(e) {
 				e.preventDefault();
 				const field = $(this).data('sort'); // Get the field to sort
-				console.log("Field: ", field);
+				console.log("HTMLField: ", field);
 				const sortOrder = $(this).hasClass('ascending') ? 'descending' : 'ascending';
-
+				console.log("sortOrder: ", sortOrder);
 				// Toggle the class and sort arrow icon
 				$('.sortable').removeClass('ascending descending');
 				$(this).addClass(sortOrder);
@@ -77,6 +77,7 @@
 			});
 
 			function fetchSortedData(field, sortOrder) {
+				console.log("HTML:In fetchSortedData");
 			// Make an AJAX request to API to get sorted data
 				$.get('/stock/' + field + '/' + sortOrder, function(data) {
 					updateTable(data);
@@ -86,6 +87,7 @@
 			}
 
 			function updateTable(data) {
+				console.log("HTML:In updateTable");
 				var tableBody = $('.table tbody');
 				tableBody.empty();
 				data.forEach(function (item) {
@@ -102,74 +104,4 @@
 		});
 	</script>
 
-
-
-
-
-
-
-
-
-<!--					// Function to handle the change event-->
-<!--					function handleSortOptionChange() {-->
-<!--						const option = sortOption.val();-->
-<!--						console.log("handlesortoption change");-->
-<!--						sortStocks(option);-->
-<!--					}-->
-
-<!--					// Add an event listener for the change event-->
-<!--					sortOption.on('change', handleSortOptionChange);-->
-
-<!--					// Trigger the change event when the page loads or after defining the event listener-->
-<!--					handleSortOptionChange();-->
-
-<!--					// $('#sortOption').change(function() {-->
-<!--					// 	const option = $(this).val();-->
-<!--					// 	sortStocks(option);-->
-
-
-
-<!--				function sortStocks(option) {-->
-<!--					console.log('option:', option);-->
-<!--					const stockTable = $('.table tbody');-->
-<!--					const rows = stockTable.children('tr').get();-->
-
-<!--					rows.sort(function (a, b) {-->
-<!--						const keyA = $(a).attr('data-key');-->
-<!--						const keyB = $(b).attr('data-key');-->
-<!--						console.log('keyA:', keyA);-->
-<!--						console.log('keyB:', keyB);-->
-<!--						if (option === 'amountAsc') {-->
-<!--							return keyA - keyB;-->
-<!--						} else if (option === 'amountDesc') {-->
-<!--							return keyB - keyA;-->
-<!--						} else if (option === 'nameAsc') {-->
-<!--							return keyA.localeCompare(keyB);-->
-<!--						} else if (option === 'nameDesc') {-->
-<!--							return keyB.localeCompare(keyA);-->
-<!--						}-->
-<!--					});-->
-<!--					stockTable.empty();-->
-<!--					$.each(rows, function(index, row) {-->
-<!--						stockTable.append(row);-->
-<!--					});-->
-<!--				}-->
-<!--
-			<div class = "filter-controls">
-				<label for="sortOption">Sort by: </label>
-				<span th:text="${selectedOption}"></span>
-				<select id="sortOption">
-					<option value="amountAsc">Amount (Low to High)</option>
-					<option value="amountDesc">Amount (High to Low)</option>
-					<option value="nameAsc">Stock Name (A to Z)</option>
-					<option value="nameDesc">Stock Name (Z to A)</option>
-				</select>
-			</div>
- Links for changing the sorting field
-			<a th:href="@{/stock?sortOption=amountAsc}">Amount (Low to High)</a>
-			<a th:href="@{/stock?sortOption=amountDesc}">Amount (High to Low)</a>
-			<a th:href="@{/stock?sortOption=nameAsc}">Stock Name (A to Z)</a>
-			<a th:href="@{/stock?sortOption=nameDesc}">Stock Name (Z to A)</a>
-
--->
 

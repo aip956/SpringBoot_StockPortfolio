@@ -28,10 +28,10 @@ public class apiController {
         return ResponseEntity.ok(stocks);
     }
 
-   @GetMapping("/{field}")
-   // Postman: GET http://localhost:8080/api/stock/amountInv
-    public ResponseEntity<List<Stock>> getStocksWithSort(@PathVariable String field) {
-        List<Stock> stocks = stockService.findStocksWithSorting(field);
+   @GetMapping("/{field}/{order}")
+   // Postman: GET http://localhost:8080/api/stock/amountInv/ascending
+    public ResponseEntity<List<Stock>> getStocksWithSort(@PathVariable String field, @PathVariable String order) {
+        List<Stock> stocks = stockService.findStocksWithSorting(field, order);
         return ResponseEntity.ok(stocks);
     }
 
