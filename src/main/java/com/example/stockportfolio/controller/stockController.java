@@ -59,10 +59,12 @@ public class stockController {
     }
 
     // Sorted stock list
-    @GetMapping("/{field}")
+    // @GetMapping("/{field}/{order}") in api
+    @GetMapping("stock/{field}/{order}")
     public String getStocksWithSort(@PathVariable String field,
                                     @RequestParam(name = "order", defaultValue = "descending") String sortOrder, Model model) {
         List<Stock> stocks = stockService.findStocksWithSorting(field, sortOrder);
+        model.addAttribute("stocks", stocks);
 
          // Total amount invested
          float totalAmountInv = stockService.getTotalAmtInv();
@@ -72,6 +74,17 @@ public class stockController {
          float totalInvLimit = 10000000; // $10M
          float remainingAmt = totalInvLimit - totalAmountInv;
          model.addAttribute("remainingAmt", remainingAmt);
+
+         // Determine the template name based on the sorting field
+        String templateName = "showStocks_sort" + field + sortOrder;
+        System.out.println("79field: " + field);
+        System.out.println("79order: " + sortOrder);
+        System.out.println("79Templatename: " + templateName);
+
+        // Check if the template exists, or handle errors
+//        if (templateExists(templateName)) {
+//            return templateName;
+//        } else return "showStocks";
         return "showStocks";
     }
 
