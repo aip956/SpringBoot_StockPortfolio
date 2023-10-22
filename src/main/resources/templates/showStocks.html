@@ -9,6 +9,10 @@
     <meta name="author" content="LayoutIt!">
 	  <link href="css/bootstrap.min.css" rel="stylesheet">
 	  <link href="css/style.css" rel="stylesheet">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+	  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+
   </head>
   <body>
 
@@ -49,20 +53,27 @@
 					</tr>
 				</tbody>
 			</table>
-			<a th:href="@{/addStock}" class="btn btn-success">Add Stock / Inv</a>
-			<a th:href="@{/stock/{field}/{order}(field='stockName', order='ascending')}" class="btn btn-primary">Sort by Stock</a>
-			<a th:href="@{/stock/{field}/{order}(field='amountInv', order='ascending')}" class="btn btn-primary">Sort by Amount Invested</a>
+
+<!--			<a th:href="@{/stock/amountInv/ascending}" class="btn btn-primary" id="amountInvSortButton">Sort by Amount2</a>-->
+
+			<a th:href="@{/stock/{field}/{order}(field='stockName', order='ascending')}" class="btn btn-primary">↑ Sort by Stock</a>
+			<a th:href="@{/stock/{field}/{order}(field='stockName', order='descending')}" class="btn btn-primary">↓ Sort by Stock</a>
+			<a th:href="@{/stock/{field}/{order}(field='amountInv', order='ascending')}" class="btn btn-primary">↑ Sort by Amount</a>
+			<a th:href="@{/stock/{field}/{order}(field='amountInv', order='decending')}" class="btn btn-primary">↓ Sort by Amount</a>
+
+
 		</div>
 	</div>
+		<div class="row">
+			<div class="col-md-12">
+				<!-- "Home Page / Inv" and "Add Stock / Inv" buttons go here -->
+				<a th:href="@{/stock}" class="btn btn-success">
+					<i class="fas fa-home"></i> Home Page </a>
+				<a th:href="@{/addStock}" class="btn btn-success">Add Stock / Change Max $</a>
+			</div>
+		</div>
 </div>
 
-<!--	<script src="js/jquery.min.js"></script>-->
-<!--	-->
-<!--	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
-<!--	<script src="js/bootstrap.min.js"></script>-->
-<!--	<script src="js/scripts.js"></script>-->
-<!--	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.7/js/tether.min.js"></script>-->
-	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 	<script th:src="@{/js/jquery.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script th:src="@{/js/scripts.js}"></script>
@@ -71,54 +82,4 @@
   </body>
 </html>
 
-	<script>
-		$(document).ready(function() {
-			console.log("63HTML:Document ready");
-			// Click event handler for column headers
-			$('.sortable').on('click', function(e) {
-				e.preventDefault();
-				const field = $(this).data('sort'); // Get the field to sort
-				console.log("68HTMLField: ", field);
-				const sortOrder = $(this).hasClass('ascending') ? 'descending' : 'ascending';
-				console.log("70sortOrder: ", sortOrder);
-				// Toggle the class and sort arrow icon
-				$('.sortable').removeClass('ascending descending');
-				$(this).addClass(sortOrder);
-
-				// Call an API endpoint to fetch sorted data and update table
-				fetchSortedData(field, sortOrder);
-			});
-
-			function fetchSortedData(field, sortOrder) {
-				console.log("80HTML:In fetchSortedData");
-			// Make an AJAX request to API to get sorted data
-				console.log("84 $get: ", $.get('/stock/' + field, {order: sortOrder }));
-				console.log("84 data: ", data);
-				$.get('/stock/' + field, {order: sortOrder }, function(data) {
-					console.log("85HTML: ", data);
-					updateTable(data);
-					// Update table with sorted data
-					// Now use jQuery to update table
-				});
-				console.log("90HTML:End of fetchSortedData");
-			}
-
-			function updateTable(data) {
-				console.log("90HTML:In updateTable");
-				var tableBody = $('.table tbody');
-				tableBody.empty();
-				data.forEach(function (item) {
-					var row = '<tr>' +
-							'<td>' + item.id + '</td>' +
-							'<td>' + item.stockName + '</td>' +
-							'<td>' + item.amountInv + '</td>' +
-							'<td><a href="/editStock/' + item.id + '" class="btn btn-primary">View/Edit</a></td>' +
-							'<td><a href="/deleteStock/' + item.id + '" class="btn btn-danger">Delete</a></td>' +
-							'</tr>';
-					tableBody.append(row);
-				});
-			}
-		});
-	</script>
-
-
+<!--	>↑  ↓ -->

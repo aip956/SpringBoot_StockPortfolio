@@ -30,19 +30,19 @@ public class stockController {
 //    }
 
     @GetMapping("/stock")
-    public String showStock(Model model, @RequestParam(name = "sortOption", required = false) String selectedOption) {
+    public String showStock(Model model) {
         //  public String showStock(Model model, @RequestParam(name = "sortOption", required = false) String selectedOption) {
         // List of stocks
-        if (selectedOption ==  null) {
-            selectedOption = "amountAsc";
-            System.out.println("selectedOption null");
-        }
+//        if (selectedOption ==  null) {
+//            selectedOption = "amountAsc";
+//            System.out.println("selectedOption null");
+//        }
 
         System.out.println("Show stock");
 
         List<Stock> stocks = stockService.getAllStock();
-        model.addAttribute("selectedOption", selectedOption);
-        System.out.println("45selectedOption: " + selectedOption);
+//        model.addAttribute("selectedOption", selectedOption);
+//        System.out.println("45selectedOption: " + selectedOption);
         model.addAttribute("stocks", stocks);
 
 
@@ -53,6 +53,7 @@ public class stockController {
         // Remaining to invest
         float totalInvLimit = 10000000; // $10M
         float remainingAmt = totalInvLimit - totalAmountInv;
+        model.addAttribute("totalInvLimit", totalInvLimit);
         model.addAttribute("remainingAmt", remainingAmt);
 
         return "showStocks";
@@ -62,8 +63,11 @@ public class stockController {
     // @GetMapping("/{field}/{order}") in api
     @GetMapping("stock/{field}/{order}")
     public String getStocksWithSort(@PathVariable String field,
-                                    @RequestParam(name = "order", defaultValue = "descending") String sortOrder, Model model) {
-        List<Stock> stocks = stockService.findStocksWithSorting(field, sortOrder);
+                                    @PathVariable String order, Model model) {
+        System.out.println("66field: " + field);
+        System.out.println("67order: " + order);
+
+        List<Stock> stocks = stockService.findStocksWithSorting(field, order);
         model.addAttribute("stocks", stocks);
 
          // Total amount invested
@@ -75,18 +79,10 @@ public class stockController {
          float remainingAmt = totalInvLimit - totalAmountInv;
          model.addAttribute("remainingAmt", remainingAmt);
 
-         // Determine the template name based on the sorting field
-        String templateName = "showStocks_sort" + field + sortOrder;
-        System.out.println("79field: " + field);
-        System.out.println("79order: " + sortOrder);
-        System.out.println("79Templatename: " + templateName);
-
-        // Check if the template exists, or handle errors
-//        if (templateExists(templateName)) {
-//            return templateName;
-//        } else return "showStocks";
         return "showStocks";
     }
+
+
 
     @GetMapping("/pagination/{offset}/{pageSize}")
     public String getStocksWithPagination(@PathVariable int offset, @PathVariable int pageSize, Model model) {
