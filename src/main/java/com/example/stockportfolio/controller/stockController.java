@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Controller
+
 public class stockController {
     // need to create service!!
      private final StockService stockService;
