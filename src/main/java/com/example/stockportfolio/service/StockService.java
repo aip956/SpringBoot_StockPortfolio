@@ -28,6 +28,15 @@ public class StockService {
                 .map(Stock::getAmountInv)
                 .reduce(0.0f, Float::sum);
     }
+    private float totalInvLimit = 10000000.0f;
+    public float getTotalInvLimit() {
+        return totalInvLimit;
+    }
+    public void updateTotalInvLimit(float newLimit) {
+        totalInvLimit = newLimit;
+    }
+
+
     public List<Stock> findStocksWithSorting(String field, String order) {
         Sort.Direction direction = "ascending".equalsIgnoreCase(order) ? Sort.Direction.ASC : Sort.Direction.DESC;
         return stockRepository.findAll(Sort.by(direction,field));

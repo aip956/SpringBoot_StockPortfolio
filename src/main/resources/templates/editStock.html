@@ -7,6 +7,7 @@
         <title>Edit Person</title>
         <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
         <link th:href="@{/css/style.css}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     </head>
     <body>
         <div class="container-fluid">
@@ -35,11 +36,19 @@
 
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a th:href="@{/stock}" class="btn btn-secondary">Cancel</a> <!-- Cancel button -->
+                        <br><br>
                         <div th:if="${errorMessage}" class="alert alert-danger">
                             <p th:text="${errorMessage}"></p>
                         </div>
                     </form>
 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- "Home Page / Inv" and "Add Stock / Inv" buttons go here -->
+                    <a th:href="@{/stock}" class="btn btn-success">
+                        <i class="fas fa-home"></i> Home Page </a>
                 </div>
             </div>
         </div>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Add Person</title>
+        <!-- <
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        -->
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+        <link th:href="@{/css/style.css}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <h2>Edit Investment Limit</h2>
+                    <form method="post" th:action="@{/editTotalInvLimit}">
+                        <label for="newLimit">New Total Investment Limit:</label>
+
+                        <input type="number" id="newLimit" name="newLimit" th:value="${currentTotalInvLimit}" required>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <a th:href="@{/stock}" class="btn btn-secondary">Cancel</a> <!-- Cancel button -->
+                        <br><br>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+            			<div class="col-md-12">
+            				<!-- "Home Page / Inv" and "Add Stock / Inv" buttons go here -->
+            				<a th:href="@{/stock}" class="btn btn-success">
+            					<i class="fas fa-home"></i> Home Page </a>
+
+            			</div>
+            		</div>
+        </div>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

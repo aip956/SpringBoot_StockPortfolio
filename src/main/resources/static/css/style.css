@@ -1,8 +1,5 @@
-/* CSS for sorting arrows */
-.sort-link.ascending:after {
-    content: " ▲";
-}
+/* CSS for aligning currency in header */
 
-.sort-link.descending:after {
-    content: " ▼";
+.currency-amount {
+    vertical-align: middle;
 }
