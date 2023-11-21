@@ -1,0 +1,8 @@
+com/example/stockportfolio/repository/StockRepository.class
+com/example/stockportfolio/service/StockService.class
+com/example/stockportfolio/model/Stock.class
+com/example/stockportfolio/comparator/StockNameComparator.class
+com/example/stockportfolio/controller/apiController.class
+com/example/stockportfolio/comparator/StockAmountComparator.class
+com/example/stockportfolio/StockPortfolioApplication.class
+com/example/stockportfolio/controller/stockController.class

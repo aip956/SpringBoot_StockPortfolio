@@ -1,0 +1,5 @@
+/* CSS for aligning currency in header */
+
+.currency-amount {
+    vertical-align: middle;
+}
