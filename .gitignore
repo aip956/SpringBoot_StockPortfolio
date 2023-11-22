@@ -5,9 +5,9 @@ HELP.md
 #!**/src/test/**/target/
 
 # Exclude application.properties due to password:
-application.properties
-stockpair.pem
-StockPortfolio.pem
+#application.properties
+#stockpair.pem
+#StockPortfolio.pem
 
 ### STS ###
 .apt_generated
