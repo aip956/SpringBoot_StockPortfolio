@@ -30,7 +30,7 @@ public class stockController {
 //        return "Next up!";
 //    }
 
-    @GetMapping("/stock")
+    @GetMapping("/")
     public String showStock(Model model) {
         System.out.println("Show stock");
         List<Stock> stocks = stockService.getAllStock();
