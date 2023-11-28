@@ -6,7 +6,7 @@ HELP.md
 
 # Exclude application.properties due to password:
 #application.properties
-#stockpair.pem
+stockpair.pem
 #StockPortfolio.pem
 
 ### STS ###
