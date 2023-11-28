@@ -33,7 +33,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">Add Investment</button><!-- Add button -->
-                        <a th:href="@{/stock}" class="btn btn-secondary">Cancel</a> <!-- Cancel button -->
+                        <a th:href="@{/}" class="btn btn-secondary">Cancel</a> <!-- Cancel button -->
                         <br><br>
                         <!-- Message if Total Amount Inv exceeds $10M -->
                         <div th:if="${errorMessage}" class="alert alert-danger">
@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- "Home Page / Inv" and "Add Stock / Inv" buttons go here -->
-                    <a th:href="@{/stock}" class="btn btn-success">
+                    <a th:href="@{/}" class="btn btn-success">
                         <i class="fas fa-home"></i> Home Page </a>
                 </div>
             </div>

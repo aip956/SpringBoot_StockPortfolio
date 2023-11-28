@@ -18,6 +18,7 @@ public class StockPortfolioApplication {
         // Set the port and start the application
         SpringApplication app = new SpringApplication(StockPortfolioApplication.class);
         app.setDefaultProperties(Collections.singletonMap("server.port", port));
+        System.setProperty("server.address", "0.0.0.0"); // Set server address
         app.run(args);
         System.out.println("Now running!");
     }

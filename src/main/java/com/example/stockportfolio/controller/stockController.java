@@ -128,7 +128,7 @@ public class stockController {
             return "addStock";
         }
         // saves the stock after adding
-        return "redirect:/stock";
+        return "redirect:/";
     }
 
     @GetMapping("/editStock/{id}")
@@ -157,7 +157,7 @@ public class stockController {
         System.out.println("89remainingAmt: " + stockService.getTotalAmtInv());
         if (newTotalAmtInv <= totalInvLimit) {
             Stock savedStock = stockService.saveStock(stock);
-            return "redirect:/stock";
+            return "redirect:/";
         } else {
             // Add error message attribute to the model
             model.addAttribute("errorMessage", "Total Amount Invested would exceed $10M. Please enter an amount <= $" + (stockService.findStockById(stock.getId()).getAmountInv() + remainingAmt ));
@@ -170,7 +170,7 @@ public class stockController {
     @GetMapping("/deleteStock/{id}")
     public String deleteStock(@PathVariable Long id, Model model) {
         stockService.deleteStockById(id);
-        return "redirect:/stock";
+        return "redirect:/";
     }
 
     @GetMapping("/editTotalInvLimit")
@@ -186,6 +186,6 @@ public class stockController {
         // Update the totalInvLimit
         stockService.updateTotalInvLimit(newLimit);
         System.out.println("192 newLimit: " + newLimit);
-        return "redirect:/stock";
+        return "redirect:/";
     }
 }
