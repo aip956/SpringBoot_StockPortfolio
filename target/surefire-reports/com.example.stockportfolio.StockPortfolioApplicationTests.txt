@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.stockportfolio.StockPortfolioApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.438 s - in com.example.stockportfolio.StockPortfolioApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.514 s - in com.example.stockportfolio.StockPortfolioApplicationTests
