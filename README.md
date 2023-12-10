@@ -1,5 +1,4 @@
 TASK</br>
-
 StockPortfolio is a CRUD application built in SpringBoot Java.
 
 The home view summarized each investment, with a calculator that </br>
@@ -39,10 +38,51 @@ Locally
     src="./ScreenCaps/LocalRunFromFile.png"
     alt="Run from file menu"
     title="Run from file menu"
-    style="display: block; margin: 0 auto; max-width: 200px">
+    style="display: block; margin: 0 auto; max-width: 150px">
+    </br>
+* * Or run from icon
+* * <img
+    src="./ScreenCaps/LocalRunFromIcon.png"
+    alt="Run from file menu"
+    title="Run from file menu"
+    style="display: block; margin: 0 auto; max-width: 150px">
     </br>
 
 Web Application
 * In Railway, link https://stockportfolio.up.railway.app/stock </br>
 * This will be the main landing page, showing all stock
-* 
+* Stock can be viewed by ascending or descending amount
+* * <img
+    src="./ScreenCaps/ListSortByAmt.png"
+    alt="Run from file menu"
+    title="Run from file menu"
+    style="display: block; margin: 0 auto; max-width: 150px">
+    </br>
+* Stock can be sorted by Name, ascending or descending
+* * <img
+    src="./ScreenCaps/ListSortByName.png"
+    alt="Run from file menu"
+    title="Run from file menu"
+    style="display: block; margin: 0 auto; max-width: 150px">
+    </br>
+* Stock can be added/edited
+* * <img
+    src="./ScreenCaps/AddInv.png"
+    alt="Run from file menu"
+    title="Run from file menu"
+    style="display: block; margin: 0 auto; max-width: 150px">
+    </br>
+* If investment exceeds limit, there will be an error
+* * <img
+    src="./ScreenCaps/AddStockExceedLimitError.png"
+    alt="Run from file menu"
+    title="Run from file menu"
+    style="display: block; margin: 0 auto; max-width: 150px">
+    </br>
+
+FUTURE FEATURES</br>
+It was a great experience creating a CRUD application in Java. </br>
+Some future improvements could be:
+* Implement in AWS
+* Add React for better front end functionality
+* Improve sorting implementation and have single sort button
