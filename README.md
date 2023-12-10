@@ -35,6 +35,12 @@ TO RUN</br>
 Locally
 * In IntelliJ IDEA
 * * In the StockPortfolioApplication, right click for the menu, then click run </br>
+* * <img
+    src="./ScreenCaps/LocalRunFromFile.png"
+    alt="Run from file menu"
+    title="Run from file menu"
+    style="display: block; margin: 0 auto; max-width: 200px">
+    </br>
 
 Web Application
 * In Railway, link https://stockportfolio.up.railway.app/stock </br>
