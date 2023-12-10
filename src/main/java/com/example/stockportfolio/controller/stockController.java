@@ -75,36 +75,6 @@ public class stockController {
     }
 
 
-
-//    @GetMapping("/pagination/{offset}/{pageSize}")
-//    public String getStocksWithPagination(@PathVariable int offset, @PathVariable int pageSize, Model model) {
-//        Page<Stock> stocksPage = stockService.findStocksWithPagination(offset, pageSize);
-//
-//        // Total amount invested
-//        float totalAmountInv = stockService.getTotalAmtInv();
-//        model.addAttribute("totalAmountInv", totalAmountInv);
-//
-//        // Remaining to invest
-//        float totalInvLimit = 10000000; // $10M
-//        float remainingAmt = totalInvLimit - totalAmountInv;
-//        model.addAttribute("remainingAmt", remainingAmt);
-//        return "showStocks";
-//    }
-//
-//    @GetMapping("/pagination/{offset}/{pageSize}/{field}")
-//    // Postman: GET http://localhost:8080/api/stock/pagination/0/3 (first 3 elements)
-//    public String getStocksWithPaginationAndSort(@PathVariable int offset, @PathVariable int pageSize, @PathVariable String field, Model model) {
-//        // Total amount invested
-//        float totalAmountInv = stockService.getTotalAmtInv();
-//        model.addAttribute("totalAmountInv", totalAmountInv);
-//
-//        // Remaining to invest
-//        float totalInvLimit = 10000000; // $10M
-//        float remainingAmt = totalInvLimit - totalAmountInv;
-//        model.addAttribute("remainingAmt", remainingAmt);
-//        return "showStocks";
-//    }
-
     @GetMapping("/addStock")
     public String showAddStock(Model model) {
         model.addAttribute("stock", new Stock());
