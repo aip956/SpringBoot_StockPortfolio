@@ -33,7 +33,7 @@ The following components create the CRUD capability:</br>
 
 TO RUN</br>
 Locally
-* In IntlliJ IDEA
+* In IntelliJ IDEA
 * * In the StockPortfolioApplication, right click for the menu, then click run </br>
 
 Web Application
