@@ -39,15 +39,16 @@ Locally
     alt="Run from file menu"
     title="Run from file menu"
     style="display: block; margin: 0 auto; max-width: 150px">
-    </br>
+</br>
+</br>
 * * Or run from icon
 * * <img
     src="./ScreenCaps/LocalRunFromIcon.png"
     alt="Run from file menu"
     title="Run from file menu"
     style="display: block; margin: 0 auto; max-width: 150px">
-    </br>
-
+</br>
+</br>
 Web Application
 * In Railway, link https://stockportfolio.up.railway.app/stock </br>
 * This will be the main landing page, showing all stock
@@ -57,14 +58,16 @@ Web Application
     alt="Run from file menu"
     title="Run from file menu"
     style="display: block; margin: 0 auto; max-width: 150px">
-    </br>
+</br>
+</br>
 * Stock can be sorted by Name, ascending or descending
 * * <img
     src="./ScreenCaps/ListSortByName.png"
     alt="Run from file menu"
     title="Run from file menu"
     style="display: block; margin: 0 auto; max-width: 150px">
-    </br>
+</br>
+</br>
 * Stock can be added/edited
 * * <img
     src="./ScreenCaps/AddInv.png"
@@ -78,8 +81,8 @@ Web Application
     alt="Run from file menu"
     title="Run from file menu"
     style="display: block; margin: 0 auto; max-width: 150px">
-    </br>
-
+</br>
+</br>
 FUTURE FEATURES</br>
 It was a great experience creating a CRUD application in Java. </br>
 Some future improvements could be:
