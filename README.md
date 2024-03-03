@@ -16,19 +16,95 @@ TECHNOLOGY STACK</br>
 * MySQL (and MySQL Workbench)</br>
   </br>
 
+USER REQUIREMENTS</br>
+The user should be able to:
+* Edit the Investment Limit Maximum
+* See their total amount invested, and the remaining amount
+* Add, Edit, and Delete a stock line (stock, amount)
+* Sort stock lexicographically or by amount, ascending or descending
+* Make edits/additions through an interface
+* Data persistence; see stock after logging out and in
+
 DESIGN</br>
-The following components create the CRUD capability:</br>
-* stockController: Defines the routes
-* Stock (model): Defines the variables/model methods, e.g. Stock, </br>
-    ID, Amount Invested </br>
-* StockRepository: Manages the persistence of Stock entities. </br>
-    It acts as an interface between the application code and the underlying  </br>
-    database.
-* StockService: Acts as an intermediary between the controller and the </br>
-    database, calculating the total investments, managing investment </br>
-    limits.</br>
-* StockPortfolioApplication: Entry point for the Spring Boot application. </br>
-  </br>
+To create an application with CRUD capability, I used:
+
+IntelliJ Integrated Development Environment: </br>
+* Integration to Git, built-in tools, strong adoption and community
+</br>
+
+Spring Boot
+* Sensible defaults and auto-configuration
+* Embedded web server (Tomcat) eliminating need for deploying apps to external servers for simpler deployment
+* Dependency Injection and Auto-configuration: For ease-of-use
+* Create dependency management and build automation
+</br>
+Maven for simplified dependency management and IDE integration
+* Maven build: maven clean install command
+* Maven dependencies: pom.xml
+
+In the application:</br>
+Define routes => Achieved with the stockController class.
+* Get Method
+* Get Method with Sorting
+* Get Method to Add Stock
+* Post Method for Added Stock
+* Get Method to Edit Stock
+* Post Method for Updated Stock
+* Get Method to Delete Stock
+* Get Method to Edit Total Investment
+* Post Method for Edited Total Investment</br>
+
+Define variables/model methods => Achieved with Stock (model)
+* Stock
+* ID
+* Amount Invested</br>
+  
+Manage persistence of Stock entities => Achieved with StockRepository. 
+* Interface class acts as an interface between the application code and the underlying database.</br>
+
+Make calculations (e.g. total investments vs. investment limits) => Achieved with StockService. 
+
+* This class’ methods act as intermediaries between the controller and the database; the methods calculate the total investments, managing investment limits, etc.
+* getAllStock method
+* findStockById method
+* saveStock method
+* deleteStockById method
+* getTotalAmtInv (get total amount invested) method
+* @autowired for automatic dependency injection
+  
+Have an entry point for the user => Achieved through the StockPortfolioApplication.java:
+* Checks if there’s an environment variable ‘PORT’
+* Creates a SpringApplication instance, the entry point, and is annotated @SpringBootApplication
+* Sets Default Property ‘server.port’ and server address
+* Runs the application, starts the Tomcat server and initialized the Spring application context
+* Prints a message to indicate application has started successfully
+
+For the interface, the user needs to view pages for home, edit, and add. 
+* Used Thymeleaf to create html templates to integrate dynamic data and logic
+* Server-side Java template for web for server-side rendering / improved performance
+* Integration with Spring Framework Java Backend
+* Used Bootstrap in Thymeleaf to style pages
+* * addStock.html
+* * editStock.html
+* * editTotalInvLimit.html
+* * showStocks.html
+* * stockNotFound.html
+  
+Data Persistence:
+* Integrated MySQL database
+* Scalability: Designed for large-scale applications with high volumes of data
+* Performance: MySQL is optimized for fast read and write performance, with efficient indexing
+* Industry standard and large adoption: Very popular relations database, widely used across various industries
+* Tested with MySQL workbench
+  
+Railway for Deployment:
+* I first attempted to deploy my app on AWS, but started incurring significant charges before I was able to complete the deployment. I switch to the simpler Railway Platform as a Service
+* Simple deployment and hosting for web applications
+* Intuitive platform for deployment; integrated with git
+* Cost-effective
+* I did run into an issue with deployment, and my colleague helped diagnose I was missing a “Host” variable.
+</br>
+
 
 TO RUN</br>
 Locally
@@ -49,6 +125,7 @@ Locally
     style="display: block; margin: 0 auto; max-width: 150px">
 </br>
 </br>
+
 Web Application
 * In Railway, link https://stockportfolio.up.railway.app/stock </br>
 * This will be the main landing page, showing all stock
@@ -83,9 +160,10 @@ Web Application
     style="display: block; margin: 0 auto; max-width: 150px">
 </br>
 </br>
-FUTURE FEATURES</br>
-It was a great experience creating a CRUD application in Java. </br>
-Some future improvements could be:
-* Implement in AWS
-* Add React for better front end functionality
-* Improve sorting implementation and have single sort button
+
+
+The team:
+Written primarily by me. However, I did consult with a colleague well-versed in deployment in order to deploy to Railway.
+
+
+
