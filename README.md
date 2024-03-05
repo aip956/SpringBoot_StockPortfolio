@@ -1,5 +1,5 @@
 TASK</br>
-StockPortfolio is a CRUD application built in SpringBoot Java.
+StockPortfolio is a CRUD application built in Spring Boot Java.
 
 The home view summarized each investment, with a calculator that </br>
 shows how much of a $10M investment remains. The user can add a fund,</br>
@@ -98,11 +98,11 @@ Data Persistence:
 * Tested with MySQL workbench
   
 Railway for Deployment:
-* I first attempted to deploy my app on AWS, but started incurring significant charges before I was able to complete the deployment. I switched to the simpler Railway Platform as a Service
+* I first attempted to deploy my app on AWS, but started incurring significant charges before I was able to complete the deployment. I switch to the simpler Railway Platform as a Service
 * Simple deployment and hosting for web applications
 * Intuitive platform for deployment; integrated with git
 * Cost-effective
-
+* I did run into an issue with deployment, and my colleague helped diagnose I was missing a “Host” variable.
 </br>
 
 
@@ -161,20 +161,7 @@ Web Application
 </br>
 </br>
 
-CHALLENGES:
-Stock Portfolio challenges
-Implementing stock display sorting:
-I wanted to implement a sorting interface where there would be an arrow on the header columns (Stock Name and Stock Price), and the user would click on the  arrow to sort by that variable. I unfortunately was not able to implement this in Thymeleaf. My workaround was implementing sort in a get method, and creating buttons for sort for Stock Name and Stock Price.
-
-
-AWS Deployment:
-I attempted to deploy this app on AWS initially. As part of the deployment, I created a virtual database in AWS. Although intended to be a free service, I was charged for both the database as well as the Elastic Compute. I therefore deleted my work out of AWS, and set about deploying on a simpler (more applicable) platform, Railway.
-
-
-Railway Deployment:
-I followed a tutorial to deploy my app on Railway. It seemed very straightforward in that it uses my git repository and some modifications to the application.properties file in Spring Boot. After deploying, my run message displayed, and the error logs did not include any issues with deployment. However, the link to my app displayed an error. Researching the error did not turn up the cause, so I consulted with a colleague. He helped me troubleshoot, and determined I was missing a “PORT” variable. It now runs.
-
-
+C
 The team:
 Written primarily by me. However, I did consult with a colleague well-versed in deployment in order to deploy to Railway.
 
